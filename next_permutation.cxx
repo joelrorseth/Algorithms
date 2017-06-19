@@ -22,30 +22,36 @@ void next_permutation(std::vector<int> & nums) {
     int k = -1, l = -1;
 
     // Starting at second last index, compare nums[i] to nums[i+1]
-    // This finds the index i of leftmost num where nums[i] < nums[i+1]
+    // This finds the index of first non-increasing num right to left
+    // This is to guarantee minimum number when reversing later
+        
     for (int i = nums.size() - 2; i >= 0; --i)
         if (nums[i] < nums[i + 1]) {
             k = i;
             break;
         }
-
+            
     // If there was no nums[k + 1] greater than any nums[k]
     if (k == -1) {
         std::reverse(nums.begin(), nums.end());
         return;
     }
-
+        
     // Find index of largest num > nums[k] in range (k, end of vector]
+    // This finds the next biggest number after nums[k] since it is currently 
+    // decending right to left in the range of (k, end of array]
+        
     for (int i = nums.size() - 1; i > k; --i)
         if (nums[i] > nums[k]) {
             l = i;
             break;
         }
-
-    // Swap largest num past index k with leftmost num where nums[k] was < nums[k+1]
+        
+    // Swap to get next largest number to replace nums[k]
     std::swap(nums[k], nums[l]);
-
-    // Since that was the largest num, we reverse the sequence starting at k
+        
+    // Reverse the sequence after nums[k] since it is decreasing left to right
+    // This gets the smallest possible number after nums[k] in (k, end of array]
     std::reverse(nums.begin() + k + 1, nums.end());
 }
 
