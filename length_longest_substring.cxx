@@ -21,12 +21,17 @@ int length_of_longest_substring(std::string s) {
     // Go through each character in string
     for (int i = 0; i < s.size(); ++i) {
 
-        // If character is repeat, reset start pos to the repeat
+        // If character is a repeat in the current substring eg. in range (start, i)...
+        // Set start to one before first letter in new substring
+        // We then know that everything after 'start' (our current substring) is unique
+
         if (positions[s[i]] > start)
             start = positions[s[i]];
 
-        // Map the position of new character to new character
+        // Map the position of new character to the characters position
         positions[s[i]] = i;
+
+        // Determine if length of range (i, start) is longer than current longest
         length = std::max(length, i - start);
     }
 
