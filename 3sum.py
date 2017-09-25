@@ -19,7 +19,7 @@ def three_sum(nums, target):
         
     res = set()
         
-    # Sort numbers - O(log n)
+    # Sort numbers - O(n log n)
     nums.sort()
         
     # Take each number as a first element is a possible pair
